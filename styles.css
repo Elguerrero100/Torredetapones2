@@ -1,0 +1,83 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const tower = document.getElementById('tower');
+    const addButton = document.getElementById('addButton');
+    const resetButton = document.getElementById('resetButton');
+    const viewRecordsButton = document.getElementById('viewRecordsButton');
+    const resetRecordButton = document.getElementById('resetRecordButton');
+    const passwordInput = document.getElementById('passwordInput');
+    const countDisplay = document.getElementById('countDisplay');
+    const recordDisplay = document.getElementById('recordDisplay');
+    const gamesPlayedDisplay = document.getElementById('gamesPlayedDisplay');
+    const messageDisplay = document.getElementById('messageDisplay');
+    const leaderboardList = document.getElementById('leaderboardList');
+    const leaderboard = document.getElementById('leaderboard');
+
+    let count = 0;
+    let highestRecord = 0;
+    let gamesPlayed = 0;
+    let scoreList = [];
+
+    function updateLeaderboard() {
+        scoreList.push(count);
+        scoreList.sort((a, b) => b - a);
+        leaderboardList.innerHTML = scoreList.slice(0, 5).map(score => `<li>${score}</li>`).join('');
+    }
+
+    addButton.addEventListener('click', () => {
+        const tapon = document.createElement('div');
+        tapon.className = 'tapon';
+        tower.prepend(tapon);
+        requestAnimationFrame(() => {
+            tapon.classList.add('show');
+        });
+
+        count++;
+        countDisplay.textContent = `${count} tapones`;
+
+        if (count > highestRecord) {
+            highestRecord = count;
+            recordDisplay.textContent = `Récord: ${highestRecord} tapones`;
+            messageDisplay.textContent = '¡Has superado tu récord!';
+            setTimeout(() => {
+                messageDisplay.textContent = '';
+            }, 3000);
+        }
+    });
+
+    resetButton.addEventListener('click', () => {
+        tower.innerHTML = '';
+        gamesPlayed++;
+        gamesPlayedDisplay.textContent = `Partidas jugadas: ${gamesPlayed}`;
+        updateLeaderboard();
+        messageDisplay.textContent = `¡Juego reiniciado! Tu récord de tapones es: ${highestRecord} tapones`;
+        setTimeout(() => {
+            messageDisplay.textContent = '';
+        }, 3000);
+        count = 0;
+        countDisplay.textContent = `${count} tapones`;
+    });
+
+    viewRecordsButton.addEventListener('click', () => {
+        leaderboard.style.display = leaderboard.style.display === 'none' ? 'block' : 'none';
+    });
+
+    resetRecordButton.addEventListener('click', () => {
+        passwordInput.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+    });
+
+    passwordInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            const password = passwordInput.value;
+            if (password === '1234') {
+                highestRecord = 0;
+                recordDisplay.textContent = `Récord: ${highestRecord} tapones`;
+                alert('Récord reiniciado exitosamente.');
+            } else {
+                alert('Contraseña incorrecta.');
+            }
+            passwordInput.style.display = 'none';
+        }
+    });
+});
