@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torre de Tapones</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Torre de Tapones</h1>
+            <p class="tagline">¡Apila tapones y desafía tus límites!</p>
+        </header>
+        <main>
+            <div class="game-area">
+                <div class="tower" id="tower"></div>
+                <div class="controls">
+                    <button id="addButton">Añadir Tapón</button>
+                    <button id="resetButton">Reiniciar Juego</button>
+                    <button id="viewRecordsButton">Ver Récords</button>
+                    <button id="resetRecordButton">Reiniciar Récord</button>
+                    <input type="password" id="passwordInput" placeholder="Ingresa la contraseña" style="display: none;">
+                </div>
+            </div>
+            <div class="info">
+                <div id="countDisplay" class="count-display">0 tapones</div>
+                <div id="recordDisplay" class="record-display">Récord: 0 tapones</div>
+                <div id="gamesPlayedDisplay" class="games-played-display">Partidas jugadas: 0</div>
+                <div id="messageDisplay" class="message-display"></div>
+            </div>
+            <div id="leaderboard" class="leaderboard">
+                <h2>Tabla de Récords</h2>
+                <ul id="leaderboardList"></ul>
+            </div>
+        </main>
+        <footer>
+            <p>Desarrollado por Javielillo</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
